@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <input type="radio" name="colors" id="red" value="0" v-model="gender">同比例
+            <input type="radio" name="colors" id="red" value="1" v-model="gender">不同比例
+            <input type="text" v-model="formData.text1">
+            <input type="text" v-model="formData.text2">
+            <input type="text" v-model="formData.text3">
+            <input type="text" v-model="formData.text4">
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                formData: {
+                    text1: 0,
+                    text2: 0,
+                    text3: 0,
+                    text4: 0,
+                },
+                gender: 0,
+                formatFormData:false
+            }
+        },
+        watch: {
+            formData: {
+                handler(newVal) {
+                    if(this.formatFormData) return 
+                    switch (parseInt(this.gender)) {
+                        case 0:
+                            let nullFlag = false
+                            for (const key of Object.keys(newVal)) {
+                                if (newVal[key] === '') {
+                                    nullFlag = true
+                                }
+                                if (nullFlag && newVal[key] !== '') {
+                                    this.formatFormData = true
+                                    this.formData = {
+                                        text1: newVal[key],
+                                        text2: newVal[key],
+                                        text3: newVal[key],
+                                        text4: newVal[key],
+                                    }
+                                    this.formatFormData = false
+                                }
+                            }
+                            break;
+                        case 1:
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                immediate: true,
+                deep: true
+            }
+        }
+    })
+</script>
+
+</html>

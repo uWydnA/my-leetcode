@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="event">111</div>
+</body>
+<script>
+  let custom = new CustomEvent('test_event', {
+    detail: {
+      e_name: " this is a test "
+    }
+  })
+  let eventDom = document.querySelector('.event')
+  eventDom.addEventListener("test_event", function (e) {
+    console.log(e.detail.e_name)
+  }, false)
+  eventDom.dispatchEvent(custom)
+</script>
+
+</html>

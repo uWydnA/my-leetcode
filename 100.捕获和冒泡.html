@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="node">111222333</div>
+</body>
+<script>
+  let node = document.querySelector('.node')
+  node.addEventListener(
+    'click',
+    event => {
+      console.log('冒泡 N')
+    },
+    false
+  )
+  document.addEventListener(
+    'click',
+    event => {
+      console.log('冒泡 D')
+    },
+    false
+  )
+  // 点击 node 只会执行上面的函数，该函数不会执行
+  node.addEventListener(
+    'click',
+    event => {
+      console.log('捕获 N')
+    },
+    true
+  )
+  document.addEventListener(
+    'click',
+    event => {
+      console.log('捕获 D')
+    },
+    true
+  )
+</script>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <iframe src="www.baidu.com" frameborder="0"></iframe>
+</body>
+<script>
+  // 发送消息端
+  window.parent.postMessage('message', 'http://www.baidu.com')
+  // 接收消息端
+  var mc = new MessageChannel()
+  mc.addEventListener('message', event => {
+    var origin = event.origin || event.originalEvent.origin
+    if (origin === 'http://www.baidu.com') {
+      console.log('验证通过')
+    }
+  })
+</script>
+
+</html>

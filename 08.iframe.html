@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body,.iframe{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <iframe class="iframe" name="iframe" src="https://www.html.cn/demo/iframe-correspond/index-test.html" frameborder="0"></iframe>
+</body>
+</html>
+<script>
+   console.log( document.getElementsByTagName("iframe")[0].contentDocument,11);
+   console.log(window.frames['iframe'])
+</script>
