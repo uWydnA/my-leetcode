@@ -24,9 +24,7 @@ self.addEventListener('install', e => {
 self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(function(response) {
-      if (response) {
-        return response
-      }
+      if (response) return response
       console.log('fetch  source')
     })
   )
