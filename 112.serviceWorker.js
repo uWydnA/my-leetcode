@@ -25,7 +25,7 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(function(response) {
       if (response) return response
-      console.log('fetch  source')
+      console.log('fetch source')
     })
   )
 })
