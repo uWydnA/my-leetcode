@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id='button1'>打开TAB2 - button1</div>
+  <div id='button2'>返回TAB1 - button2</div>
+</body>
+<script>
+  const button1 = document.querySelector('#button1')
+  const button2 = document.querySelector('#button2')
+  button1.addEventListener('click', () => {
+    window.name = 'tab1'
+    window.open(window.location.href, 'tab2');
+  })
+  button2.addEventListener('click', () => {
+    window.name = 'tab2'
+    window.open(window.location.href, 'tab1');
+  })
+</script>
+
+</html>
