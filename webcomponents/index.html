@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+
+    fc-wave-filter {
+      --width: 400px;
+      border-radius: 10px;
+    }
+
+    :not(:defined) {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <fc-wave-filter color="#F54F5A">
+    <img src="./aslogo.png" />
+  </fc-wave-filter>
+
+  <script type="module">
+    import { FcWaveFilter } from 'https://unpkg.com/fancy-components'
+    new FcWaveFilter()
+  </script>
+</body>
+
+</html>
