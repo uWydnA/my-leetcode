@@ -28,8 +28,9 @@
  * @param {string} s
  * @return {string}
  */
- var reverseWords = function(s) {
+var reverseWords = function (s) {
   let wordGroup = s.split(' ')
-  return wordGroup.reverse().filter(item=>item).join(' ')
+  return wordGroup.reverse().filter(item => item).join(' ')
+
 };
 console.log(reverseWords("  hello world!  "));
