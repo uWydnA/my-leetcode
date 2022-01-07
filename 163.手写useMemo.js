@@ -7,7 +7,8 @@ const useMemo = (func, dep) => {
   if (depIndex === -1) {
     const newData = func()
     depsMap.push({ key: dep, value: newData })
-    depIndex = depsMap.findIndex(({ key }) => {
+    depIndex = depsMap.findI
+    ndex(({ key }) => {
       return Object.is(key, dep)
     })
   }

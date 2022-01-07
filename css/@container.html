@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card-container {
+      contain: layout inline-size;
+      width: 100%;
+    }
+
+    /* 当父容器宽度小于 850px，
+不再显示 .links
+并且减小 .time 字体尺寸 */
+
+    @container (max-width: 850px) {
+      .links {
+        display: none;
+      }
+
+      .time {
+        font-size: 1.25rem;
+      }
+
+      /* ... */
+    }
+
+    /* 当父容器宽度小于 650px 时，
+减小 .card 元素之间的网格间距到 1rem */
+
+    @container (max-width: 650px) {
+      .card {
+        gap: 1rem;
+      }
+
+      /* ... */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card-container">
+    <div class="card">
+      <figure> ...</figure>
+      <div>
+        <div class="meta">
+          <h2>...</h2>
+          <span class="time">...</span>
+        </div>
+        <div class="notes">
+          <p class="desc">...</p>
+          <div class="links">...</div>
+        </div>
+        <button>...</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

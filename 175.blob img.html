@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script type="module">
+    import { createApp } from "https://unpkg.com/petite-vue?module";
+
+    createApp({
+      isShow: false,
+      imgMap: { idOne: { blob: null }, idTwo: { blob: null } },
+      getImgUrl(id) {
+        return id === "idOne"
+          ? "https://cn.vuejs.org/images/tidelift.png"
+          : "https://cn.vuejs.org/images/neds.png";
+      },
+      async setSrc(id) {
+        this.isShow = !this.isShow;
+        if (!this.isShow) return;
+        await this.$nextTick();
+
+        // 创建flag，判断需要使用api还是使用blob url
+        const isUseBlobUrl = this.imgMap[id].blob == null;
+        // 兼容ie
+        window.URL = window.URL || window.webkitURL;
+        // 判断浏览器兼容性，框架可使用@babel/preset-env，帮助我们转换成代码的目标运行环境支持的语法
+        if (typeof history.pushState == "function") {
+          // 判断需要使用api还是使用blob url
+          if (isUseBlobUrl) {
+            // 获取需要加载的图片的url
+            const url = this.getImgUrl(id);
+            // 下载图片数据，通过第二个参数callback，创建Blob URL，进行图片的渲染
+            this.downloadImg(url, this.downloadImgCallback.bind(this, id));
+          } else {
+            // 直接使用内存中的Blob对象，创建Blob URL，进行图片的渲染
+            this.renderImg(this.imgMap[id].blob);
+          }
+        }
+      },
+      //下载图片数据,并转换成Blob对象
+      downloadImg(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.responseType = "blob";
+        xhr.onload = () => {
+          callback(xhr.response);
+        };
+        xhr.send(null);
+      },
+      // 使用Blob URL，渲染图片
+      renderImg(blob) {
+        this.$refs.img.addEventListener("load", () => {
+          window.URL.revokeObjectURL(this.$refs.img.src);
+        });
+        this.$refs.img.src = window.URL.createObjectURL(blob);
+      },
+      downloadImgCallback(id, response) {
+        const blob = response;
+        this.renderImg(blob);
+        this.imgMap[id].blob = blob;
+      },
+    }).mount();
+  </script>
+
+  <div>
+    <div>
+      <img src="" alt="" ref="img" class="img" v-if="isShow" />
+    </div>
+    <div>
+      <button @click="setSrc('idOne')">show/hidden 图片1</button>
+      <button @click="setSrc('idTwo')">show/hidden 图片2</button>
+    </div>
+  </div>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body,
+    .box {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      overflow: scroll;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .menu {
+      width: 200px;
+      border: 1px solid blue;
+      margin-right: 20px;
+    }
+
+    .sidebar {
+      width: 300px;
+      border: 1px solid red;
+      margin-left: 20px;
+    }
+
+
+    ul {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(228px, auto));
+      gap: 10px
+    }
+
+    .explorer-data-grid-cell {
+      width: 100%;
+      height: 186px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+
+    .explorer-data-grid-cell .grid-center {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      background: #f6f6f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+    }
+
+    .explorer-data-grid-cell .grid-center .grid-center-box {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 38px;
+      line-height: 38px;
+      opacity: 0;
+    }
+
+    .anticon {
+      display: inline-block;
+      color: inherit;
+      font-style: normal;
+      line-height: 0;
+      text-align: center;
+      text-transform: none;
+      vertical-align: -.125em;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info {
+      display: flex;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .explorer-data-grid-cell .grid-bottom {
+      padding: 6px 12px;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info .grid-bottom-main {
+      width: 100%;
+      float: left;
+      margin-right: -30px;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info .grid-right-button {
+      float: right;
+      width: 30px;
+      padding-left: 8px;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info .grid-bottom-main .grid-fileName {
+      text-align: left;
+      font-size: 14px;
+      color: #000;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info .grid-bottom-main .marginRight {
+      margin-right: 30px;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info .grid-bottom-main .grid-modified {
+      text-align: left;
+      opacity: .4;
+      font-size: 12px;
+      color: #000;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
+      margin-top: 5px;
+    }
+
+    .explorer-data-grid-cell .grid-bottom .grid-bottom-info .grid-bottom-main .marginRight {
+      margin-right: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="menu">菜单</div>
+    <ul>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+      <li class="explorer-data-grid-cell">
+        <div class="grid-center">
+          <div class="grid-center-box">
+            <div class="as-controls-details-list-checkbox-column" style="height: 38px; align-items: center;">
+              <div style="padding: 10px;"><span class="ant-checkbox as-controls-details-list-checkbox"><span
+                    class="ant-checkbox-inner"></span></span></div>
+            </div>
+          </div><span role="img" aria-label="folder" class="anticon anticon-folder" style="font-size: 64px;"><svg
+              viewBox="0 0 200 200" focusable="false" class="" data-icon="folder" width="1em" height="1em"
+              fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 16h75.73a8 8 0 015.02 1.77l27.07 21.81a8 8 0 005.02 1.77H188a8 8 0 018 8V176a8 8 0 01-8 8H12a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill-rule="evenodd" fill="#63B5FF"></path>
+            </svg></span>
+        </div>
+        <div class="grid-bottom">
+          <div class="grid-bottom-info">
+            <div class="grid-bottom-main">
+              <div class="grid-fileName marginRight" title="办公类">办公类</div>
+              <div class="grid-modified marginRight" title="更新于 2021/12/24 14:56:17">更新于 2021/12/24 14:56:17</div>
+            </div>
+            <div class="grid-right-button"><button type="button"
+                class="ant-btn ant-dropdown-trigger ant-btn-link ant-btn-sm ant-btn-icon-only"><span role="img"
+                  aria-label="operation" class="anticon anticon-operation"><svg id="更多" version="1.1"
+                    viewBox="0 0 200 200" x="0" xml:space="preserve" y="0" focusable="false" class=""
+                    data-icon="operation" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M40.48 100a18 18 0 11-36-.01 18 18 0 0136 .02zM195.52 100a18 18 0 11-36-.01 18 18 0 0136 .02zM118 100a18 18 0 11-36-.01 18 18 0 0136 .02z">
+                    </path>
+                  </svg></span></button></div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+    <div class="sidebar">侧边栏</div>
+  </div>
+</body>
+
+</html>
