@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrap down">
+      <svg width="400" height="400">
+        <foreignObject x="0" y="0" height="400" width="400">
+          <div style="background: red; height: 100%">div</div>
+        </foreignObject>
+      </svg>
+    </div>
+    <button id="btn">点击我下载</button>
+  </body>
+  <script>
+    const cloneDomToImg = (querySelector) => {
+      const down = document.querySelector(querySelector);
+      const downCopy = down.cloneNode(down);
+      console.log(downCopy, down.offsetHeight, down.offsetWidth, "downCopy");
+      const xmlDom = new XMLSerializer().serializeToString(downCopy);
+      const xml = `<?xml version="1.0" standalone="no"?>\r\n${xmlDom}`;
+      const src = `data:image/svg+xml;chartset=utf-8,${encodeURIComponent(
+        xml
+      )}`;
+      const img = document.createElement("img");
+      img.src = src;
+      img.height = down.offsetHeight;
+      img.width = down.offsetWidth;
+      document.body.appendChild(img);
+      img.onload = () => {
+        console.log("onLoad");
+        const canvas = document.createElement("canvas");
+        const canWidth = down.offsetWidth,
+          canHeight = down.offsetHeight;
+        canvas.width = canWidth;
+        canvas.height = canHeight;
+        const context = canvas.getContext("2d");
+        context.drawImage(img, 0, 0, canWidth, canHeight);
+        const a = document.createElement("a");
+        a.download = `下载.jpg`;
+        a.href = canvas.toDataURL("image/jpeg", 1);
+        a.click();
+        document.body.removeChild(img);
+      };
+    };
+
+    document
+      .querySelector("#btn")
+      ?.addEventListener("click", cloneDomToImg.bind(this, ".down"));
+  </script>
+</html>

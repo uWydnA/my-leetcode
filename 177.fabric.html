@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="change()">修改图片</button>
+    <canvas width="1000" height="1000" id="canvas"></canvas>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/460/fabric.min.js"></script>
+  <script>
+    const imageOne =
+      "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ab829ee3b3c04fa8a4a4ad2b6e15b6e9~tplv-k3u1fbpfcp-no-mark:720:720:720:480.awebp";
+    const imageTwo =
+      "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f9bee4d51c446c3814f709452c665ea~tplv-k3u1fbpfcp-no-mark:240:240:240:160.awebp";
+    // 实例化canvas
+    canvas = new fabric.Canvas("canvas");
+    // 创建图片对象
+    fabric.Image.fromURL(imageOne, (oImg) => {
+      // 将图片对象添加到 canvas 中
+      canvas.add(oImg);
+    });
+
+    // 更换图片事件
+    function change() {
+      // 获取图片对象。因为在本例中，画布里只有一个元素，用 getObjects() 获取到的数组第一个元素就是图片咯
+      const img = canvas.getObjects()[0];
+      // 使用 setSrc 方法更改图片，第二个参数是回调函数，在回调函数里刷新一下 canvas 即可
+      img.setSrc(imageTwo, () => {
+        canvas.renderAll();
+      });
+    }
+  </script>
+</html>

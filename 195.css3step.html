@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        margin-left: 200px;
+        width: 100px;
+        height: 50px;
+        border: 5px solid red;
+        overflow: hidden;
+      }
+
+      .running-bear {
+        width: 800px;
+        height: 100px;
+        background: url("./bear.webp") 0 / cover no-repeat;
+        animation: 1s steps(8) 0s infinite running run;
+      }
+
+      @keyframes run {
+        to {
+          transform: translate(-100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="running-bear"></div>
+    </div>
+  </body>
+</html>

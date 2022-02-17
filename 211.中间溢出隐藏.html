@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      em {
+        color: red;
+      }
+      .word {
+        display: flex;
+      }
+      .first {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: 1px solid red;
+      }
+      .second {
+        border: 1px solid blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="word">
+      <div class="first"></div>
+      <div class="second"></div>
+    </div>
+  </body>
+  <script>
+    const render = (firstInnerHTML, secondInnerHTML) => {
+      const first = document.querySelector(".first");
+      const second = document.querySelector(".second");
+      first.innerHTML = firstInnerHTML;
+      second.innerHTML = secondInnerHTML;
+    };
+
+    const forMatHighLight = ({ firstEnd, highlightLen, highlight, ext }) => {
+      let count = 0;
+      const emBeginRegExp = RegExp("<em>", "g");
+      const emEndRegExp = RegExp("</em>", "g");
+      let emTagIndexRangeArr = [];
+      while (emBeginRegExp.exec(highlight) !== null) {
+        emTagIndexRangeArr.push({ start: emBeginRegExp.lastIndex });
+      }
+      while (emEndRegExp.exec(highlight) !== null) {
+        Object.assign(emTagIndexRangeArr[count], {
+          end: emEndRegExp.lastIndex,
+        });
+        count++;
+      }
+      emTagIndexRangeArr.some((item) => {
+        const isFirstEndInEmTagRange =
+          item.start <= firstEnd && item.end >= firstEnd;
+        if (isFirstEndInEmTagRange) {
+          firstEnd = item.end;
+          return true;
+        }
+      });
+      const first = highlight.slice(0, firstEnd);
+      const second = highlight.slice(firstEnd, highlightLen) + ext;
+      return [first, second];
+    };
+
+    const getFirstSecoungInnerHtml = ({ highlight, ext, secondLen }) => {
+      const extLen = ext.length;
+      const highlightLen = highlight.length;
+      const sencondBegin = secondLen - extLen;
+      const firstEnd = highlightLen - sencondBegin;
+      const [first, second] = forMatHighLight({
+        firstEnd,
+        highlightLen,
+        highlight,
+        ext,
+      });
+      return [first, second];
+    };
+
+    const main = () => {
+      const highlight =
+        "AnyShare<em>管理</em>平台<em>管理</em><em>管理</em>平台<em>管理</em>";
+      const ext = ".docx";
+      const secondLen = 9;
+      const [firstInnerHTML, secondInnerHTML] = getFirstSecoungInnerHtml({
+        highlight,
+        ext,
+        secondLen,
+      });
+      render(firstInnerHTML, secondInnerHTML);
+    };
+
+    main();
+  </script>
+</html>
