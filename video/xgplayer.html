@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video,
+      input {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font-weight: normal;
+        vertical-align: baseline;
+        box-sizing: border-box;
+      }
+
+      .box {
+        height: 100vh;
+        padding: 40px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+    </style>
+    <style>
+      .content {
+        display: flex;
+      }
+      header {
+        border: 1px solid black;
+        height: 56px;
+        margin-bottom: 10px;
+      }
+      sidebar {
+        width: 100px;
+        border: 1px solid black;
+        margin-left: 20px;
+      }
+    </style>
+    <script
+      src="http://unpkg.byted-static.com/xgplayer/2.31.8/browser/index.js"
+      charset="utf-8"
+    ></script>
+    <script
+      src="http://unpkg.byted-static.com/xgplayer-hls/2.5.2/dist/index.min.js"
+      charset="utf-8"
+    ></script>
+  </head>
+  <body>
+    <div class="box">
+      <header>anyshare header</header>
+      <div class="content">
+        <div id="mse"></div>
+        <sidebar>anyshare sidebar</sidebar>
+      </div>
+    </div>
+  </body>
+  <script>
+    let player = new HlsPlayer({
+      id: "mse",
+      url: "https://anyshare.aishu.cn/api/docset/v1/item/359B9C9FE4E041549043B1E9FA0E25E5?file_id=FB1D5532C47341FA817D4042B7FE061A&resource_type=play_list&token=KlTvtpCdCmLamgf8eY8TBwKdZjbRJbgJxS7-ajbd_fs.04ELOxmqWZjA7cWy4eXFwrOMuOt6dJkiFHQXooAeBuQ&version=",
+      height: window.innerHeight - 150,
+      width: window.innerWidth - 80,
+      // fluid: true,
+      // fitVideoSize: "auto",
+      volume: 0.6,
+      autoplay: false,
+      loop: true,
+      poster:
+        "https://anyshare.aishu.cn:/api/docset/v1/item/359B9C9FE4E041549043B1E9FA0E25E5?resource_type=av_thumbnail&token=KlTvtpCdCmLamgf8eY8TBwKdZjbRJbgJxS7-ajbd_fs.04ELOxmqWZjA7cWy4eXFwrOMuOt6dJkiFHQXooAeBuQ&version=",
+      playbackRate: [0.5, 0.75, 1, 1.5, 2],
+      defaultPlaybackRate: 1,
+      lastPlayTime: 20, //视频起播时间（单位：秒）
+      lastPlayTimeHideDelay: 5, //提示文字展示时长（单位：秒）
+      thumbnail: {
+        pic_num: 44,
+        width: 160,
+        height: 90,
+        col: 10,
+        row: 10,
+        urls: [
+          "./xgplayer-demo-thumbnail-1.jpg",
+          "./xgplayer-demo-thumbnail-2.jpg",
+        ],
+      },
+      isShowCoverPreview: false,
+      download: true, //设置download控件显示
+      pip: true,
+      miniplayer: true,
+      miniplayerConfig: {
+        bottom: 200,
+        right: 0,
+        width: 320,
+        height: 180,
+      },
+      cssFullscreen: true,
+      screenShot: {
+        saveImg: true,
+        quality: 0.92,
+        type: "image/png",
+        format: ".png",
+      },
+      keyShortcutStep: {
+        //设置调整步长
+        currentTime: 15, //播放进度调整步长，默认10秒
+        volume: 0.2, //音量调整步长，默认0.1
+      },
+      errorTips: `请<span>刷新</span>试试`,
+      execBeforePluginsCall: [
+        () => {
+          console.log("Execute before plugins call");
+        },
+      ],
+      definitionActive: "click",
+      closeControlsBlur: true,
+    });
+    player.emit("resourceReady", [
+      { name: "高清", url: "url1" },
+      { name: "超清", url: "url2" },
+    ]);
+    player.on("error", (error) => {
+      console.log(error, "error");
+    });
+  </script>
+</html>

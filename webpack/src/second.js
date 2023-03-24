@@ -1,1 +1,1 @@
-console.log('i am second js 123 3')
+console.log('i am 2 js')

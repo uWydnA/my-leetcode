@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function useDownloadFile() {
+      let xhr = null;
+      let downloading = false; // 限制同一文件同时触发多次下载
+      let infoModal;
+
+      const downloadFile = (options) => {
+        let progress = {
+          value: 0,
+        };
+        try {
+          if (downloading || !options.url || !options.fileName) return;
+          downloading = true;
+          options.url = options.url.replace("http://", "https://");
+          const fileType = options.url.split(".").pop();
+          xhr = new XMLHttpRequest();
+          xhr.responseType = "blob";
+          xhr.open("get", options.url, true);
+          xhr.onprogress = function (e) {
+            progress.value = Math.floor((e.loaded / e.total) * 100);
+            if (progress.value === 100) {
+              downloading = false;
+              infoModal.destroy();
+            }
+          };
+          xhr.onloadend = function (e) {
+            if (e.target.status === 200 || e.target.status === 304) {
+              const aElement = document.createElement("a");
+              const blob = e.target.response;
+              const url = window.URL.createObjectURL(blob);
+              aElement.style.display = "none";
+              aElement.href = url;
+              aElement.download = `${options.fileName}.${fileType}`;
+              document.body.appendChild(aElement);
+              aElement.click();
+              if (window.URL) {
+                window.URL.revokeObjectURL(url);
+              } else {
+                window.webkitURL.revokeObjectURL(url);
+              }
+              document.body.removeChild(aElement);
+            }
+          };
+          xhr.send();
+        } catch (e) {
+          console.error(e);
+          downloading = false;
+          infoModal && infoModal.destroy();
+          Modal.error({
+            title: "提示",
+            content: "下载发生异常，请重试",
+          });
+        }
+      };
+
+      return {
+        downloadFile,
+      };
+    }
+    const { downloadFile } = useDownloadFile();
+    downloadFile({
+      url: "https://obs.cn-east-3.myhuaweicloud.com/obs-as7feijiegouzhengshihuanjing/013c7296-9b20-4572-9657-c68e93e5d476/CDDFB9B36DEC43EC95459329D45FB2BA/161C5C3530534361A557940F085A0269?response-content-disposition=attachment; filename*=utf-8''5e4e7896%2d5772%2d4e75%2d81c5%2d75be2342308a%5f1676873239236.pdf&AWSAccessKeyId=VXGFIHWYOESD3UA40XFF&Expires=1677548043&Signature=nMSLg1X2/BUL9pEpcyti7TtouLU=",
+      fileName: "anyshare.pdf",
+    });
+  </script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>saveSettings</h1>
+  </body>
+  <script>
+    function validateForm() {
+      let max = 10000;
+      for (let i = 0; i <= max; i++) {
+        const body = document.querySelector("body");
+        body.className = `${i}`;
+      }
+      console.log("validateForm");
+    }
+    function showSpinner() {
+      let max = 100000;
+      for (let i = 0; i <= max; i++) {
+        const body = document.querySelector("body");
+        body.className = `${i}`;
+      }
+      console.log("showSpinner");
+    }
+    function saveToDatabase() {
+      let max = 100000;
+      for (let i = 0; i <= max; i++) {
+        const body = document.querySelector("body");
+        body.className = `${i}`;
+      }
+      console.log("saveToDatabase");
+    }
+    function updateUI() {
+      let max = 100000;
+      for (let i = 0; i <= max; i++) {
+        const body = document.querySelector("body");
+        body.className = `${i}`;
+      }
+      console.log("updateUI");
+    }
+    function sendAnalytics() {
+      let max = 100000;
+      for (let i = 0; i <= max; i++) {
+        const body = document.querySelector("body");
+        body.className = `${i}`;
+      }
+      console.log("sendAnalytics");
+    }
+
+    function saveSettings() {
+      //
+      scheduler.postTask(validateForm, { priority: "user-blocking" });
+      scheduler.postTask(showSpinner, { priority: "user-blocking" });
+      scheduler.postTask(saveToDatabase, { priority: "background" });
+      scheduler.postTask(updateUI, { priority: "user-blocking" });
+      scheduler.postTask(sendAnalytics, { priority: "background" });
+
+      // // 长任务
+      // validateForm();
+      // showSpinner();
+      // saveToDatabase();
+      // updateUI();
+      // updatesendAnalyticsUI();
+    }
+    saveSettings();
+  </script>
+</html>

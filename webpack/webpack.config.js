@@ -5,8 +5,8 @@ module.exports = {
   mode: 'production',
   entry: {
     main: './src/main.js',
-    console: './src/console.js',
-    second: './src/second.js'
+    // console: './src/console.js',
+    // second: './src/second.js'
   },
   // 输出配置
   output: {

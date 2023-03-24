@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/history/4.10.1/history.production.min.js"
+      integrity="sha512-6EwU0nDcztVgjAmfgeugAi5P7xLE/9AO9JJYIJwXHbSaVKsFRWaCsFWe5Gr5Zg72fKJB0/BSSLdPjnuuY2jVLg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/history/4.10.1/history.min.js"
+      integrity="sha512-ugxwMIvDAMj98NkEw1LuoTpFTpsVsHbivJr6DYgfkmJQgiq9AYX8SQG+YhbpbnO0tlragIGrZRImow+UWOi0Ng=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body></body>
+  <script>
+    window.addEventListener("popstate", (event) => {
+      console.log(
+        "popstate: " +
+          document.location +
+          ", state: " +
+          JSON.stringify(event.state)
+      );
+    });
+
+    const history = History.createBrowserHistory();
+    history.listen((location) => {
+      console.log(location, "history listen 触发的");
+    });
+    history.push("?query=a");
+    history.push("?query=b");
+    history.push("?query=c");
+    history.push("?query=d");
+
+    window.history.pushState({ query: "aa" }, "aa", "?query=aa");
+    window.history.pushState({ query: "bb" }, "bb", "?query=bb");
+    window.history.pushState({ query: "cc" }, "cc", "?query=cc");
+    window.history.pushState({ query: "aa" }, "aa", "?query=aa");
+    window.history.back();
+    window.history.back();
+    window.history.go(2);
+  </script>
+</html>
