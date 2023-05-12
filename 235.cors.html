@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js"></script>
+  </head>
+  <body></body>
+
+  <script>
+    console.log(window.axios);
+    const instace = window.axios.create();
+    instace
+      .post("https://abtestvm.bytedance.com/service/2/abtest_config/", {
+        header: {
+          aid: 2608,
+          user_unique_id: "7068536453752129054",
+          user_id: "4160207732616669",
+          user_is_login: true,
+          web_id: "7068536453752129054",
+          app_id: 2608,
+          os_name: "mac",
+          os_version: "10_15_7",
+          device_model: "Macintosh",
+          language: "zh-CN",
+          platform: "Web",
+          sdk_version: "4.2.9",
+          sdk_lib: "js",
+          timezone: 8,
+          tz_offset: -28800,
+          resolution: "1792x1120",
+          browser: "Microsoft Edge",
+          browser_version: "111.0.1661.54",
+          referrer:
+            "https://juejin.cn/search?query=options%E8%AF%B7%E6%B1%82&utm_source=gold_browser_extension&utm_medium=search",
+          referrer_host: "juejin.cn",
+          width: 1792,
+          height: 1120,
+          screen_width: 1792,
+          screen_height: 1120,
+          utm_source: "gold_browser_extension",
+          utm_medium: "search",
+          custom: { student_verify_status: "not_student", user_level: 3 },
+          ab_sdk_version: "90083871,90081172",
+          ab_url: "https://juejin.cn/post/6844904000815366157",
+        },
+      })
+      .then((res) => {
+        console.log(res, "res");
+      });
+  </script>
+</html>

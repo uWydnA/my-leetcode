@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+  <script>
+    const promiseAllCount = 1000;
+    const max = 20;
+    let docids = [];
+    const pendingPromiseList = [];
+
+    const watchGetDirListCount = (docid) => {
+      return new Promise((reslove) => {
+        const index = docids.indexOf(docid);
+        if (index < max) {
+          reslove();
+        } else {
+          pendingPromiseList.push(reslove);
+        }
+      });
+    };
+
+    const getDirList = async (docid) => {
+      docids.push(docid);
+      await watchGetDirListCount(docid);
+      const { data } = await fetch(
+        "https://anyshare.aishu.cn/anyshare/static/media/user.c5c9d42d.png"
+      );
+      const index = docids.indexOf(docid);
+      docids.splice(index, 1);
+      const next = pendingPromiseList.shift();
+      if (typeof next === "function") {
+        next();
+      }
+
+      return {
+        data,
+      };
+    };
+
+    const promises = new Array(promiseAllCount)
+      .fill(true)
+      .map(async (item, index) => {
+        const { data } = await getDirList(index);
+      });
+
+    const main = async () => {
+      const res = await Promise.all(promises);
+      console.log(res, "res");
+    };
+  </script>
+</html>

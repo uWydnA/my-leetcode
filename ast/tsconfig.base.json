@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@anyshare/apps": ["./packages/apps/src"],
+            "@anyshare/apps/lib/*": ["./packages/apps/src/*"],
+            "@anyshare/apps/es/*": ["./packages/apps/src/*"],
+            "@anyshare/common/lib/*": ["./packages/common/src/*"],
+            "@anyshare/common/es/*": ["./packages/common/src/*"],
+            "@anyshare/components": ["./packages/components/src"],
+            "@anyshare/components/lib/*": ["./packages/components/src/*"],
+            "@anyshare/components/es/*": ["./packages/components/src/*"],
+            "@anyshare/controls": ["./packages/controls/src"],
+            "@anyshare/controls/lib/*": ["./packages/controls/src/*"],
+            "@anyshare/controls/es/*": ["./packages/controls/src/*"],
+            "@anyshare/icons": ["./packages/icons/src"],
+            "@anyshare/icons/lib/*": ["./packages/icons/src/*"],
+            "@anyshare/icons/es/*": ["./packages/icons/src/*"],
+            "@anyshare/microwidget/lib/*": ["./packages/icons/src/*"],
+            "@anyshare/microwidget/es/*": ["./packages/icons/src/*"],
+            "@anyshare/openapi": ["./packages/openapi/src"],
+            "@anyshare/openapi/dist/lib/*": ["./packages/openapi/src/*"],
+            "@anyshare/basecomponents": ["./packages/basecomponents/src"],
+            "@anyshare/basecomponents/lib/*": ["./packages/basecomponents/src/*"],
+            "@anyshare/basecomponents/es/*": ["./packages/basecomponents/src/*"],
+            "@anyshare/microwidget": ["./packages/microwidget/src"],
+            "@anysharem/common": ["./webmobilepackages/common/src"],
+            "@anysharem/common/lib/*": ["./webmobilepackages/common/src/*"],
+            "@anysharem/common/es/*": ["./webmobilepackages/common/src/*"],
+            "@anysharem/api": ["./webmobilepackages/api/src"],
+            "@anysharem/components": ["./webmobilepackages/components/src"],
+            "@anysharem/icons": ["./webmobilepackages/icons/src"],
+            "@anysharem/jssdk": ["./webmobilepackages/jssdk/src"],
+            "@anysharem/locales": ["./webmobilepackages/locales/src"],
+            "@anysharem/plugin": ["./webmobilepackages/plugin/src"],
+            "@anysharem/asmobx": ["./webmobilepackages/asmobx/src"]
+        }
+    }
+}
